@@ -1,13 +1,24 @@
 import numpy as np
-import matplotlib.pyplot as mpl
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
 
-xrange = np.linspace(-10, 10)
-yrange = 1 / (1 + np.exp(-1 * xrange))
+from DatasetLoader.Dataset import Dataset
 
 
 def run():
-	mpl.plot(xrange, yrange)
-	mpl.show()
+	figure = plt.figure()
+	ax = figure.add_subplot(111, projection='3d')
+	ds = Dataset('datasets/xor.ds')
+	xvalues = []
+	yvalues = []
+	zvalues = []
+	for example in ds.examples:
+		print(example.entries)
+		xvalues.append(example.entries[0])
+		yvalues.append(example.entries[1])
+		zvalues.append(example.outs[0])
+	ax.scatter(xvalues, yvalues, zvalues)
+	plt.show()
 
 
 if __name__ == '__main__':

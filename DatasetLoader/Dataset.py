@@ -19,5 +19,10 @@ class Dataset:
 		self.examples = []
 		with open(filename) as file:
 			self.nbExamples, self.nbEntries, self.nbOuts = file.readline().split()
-			for x in range(self.nbExamples):
-				self.examples.append(Example(file.readline().split(), file.readline().split()))
+			self.nbExamples = int(self.nbExamples)
+			self.nbEntries = int(self.nbEntries)
+			self.nbOuts = int(self.nbOuts)
+			for i in range(self.nbExamples):
+				entries = [int(x) for x in file.readline().split()]
+				outs = [int(x) for x in file.readline().split()]
+				self.examples.append(Example(entries, outs))
