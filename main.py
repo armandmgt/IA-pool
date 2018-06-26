@@ -1,22 +1,20 @@
+from math import sqrt
+
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
-from DatasetLoader.Dataset import Dataset
+from DatasetLoader.Dataset import Dataset, Example
+
+
+def compute_distance(e1: Example, e2: Example) -> float:
+	return sqrt(sum([(q - p)**2 for q, p in zip(e1.ins, e2.ins)]))
 
 
 def run():
-	figure = plt.figure()
-	ax = figure.add_subplot(111, projection='3d')
-	ds = Dataset('datasets/xor.ds')
-	ds.normalize()
-	x = []
-	y = []
-	z = []
-	for example in ds.examples:
-		x.append(example.ins[0])
-		y.append(example.ins[1])
-		z.append(example.outs[0])
-	ax.scatter(x, y, z)
+	ds = Dataset('datasets/ex00.ds')
+	for e in ds.examples:
+		point = 'bx' if e.outs[0] == 1 else 'rx'
+		plt.plot(e.ins[0], e.ins[1], point)
 	plt.show()
 
 

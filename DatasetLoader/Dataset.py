@@ -3,8 +3,8 @@ from math import sqrt
 
 
 class Example:
-	ins: list
-	outs: list
+	ins: [float]
+	outs: [float]
 
 	def __init__(self, ins: list, outs: list):
 		self.ins = ins
@@ -15,7 +15,7 @@ class Dataset:
 	nbExamples: int
 	nbEntries: int
 	nbOuts: int
-	examples: list
+	examples: [Example]
 
 	def __init__(self, filename: str):
 		self.examples = []
@@ -25,8 +25,8 @@ class Dataset:
 			self.nbEntries = int(self.nbEntries)
 			self.nbOuts = int(self.nbOuts)
 			for i in range(self.nbExamples):
-				ins = [int(x) for x in file.readline().split()]
-				outs = [int(x) for x in file.readline().split()]
+				ins = [float(x) for x in file.readline().split()]
+				outs = [float(x) for x in file.readline().split()]
 				self.examples.append(Example(ins, outs))
 
 	def normalize(self) -> None:
