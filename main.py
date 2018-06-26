@@ -1,3 +1,4 @@
+import operator
 from math import sqrt
 
 from mpl_toolkits.mplot3d import Axes3D
@@ -17,13 +18,24 @@ def get_nearest_neighbors(e: Example, train_ds: Dataset, k: int) -> [Example]:
 	return trains
 
 
+def get_most_present_cat(examples: [Example]) -> int:
+	counts = {}
+	for e in examples:
+		if e.outs[0] in counts.keys():
+			counts[e.outs[0]] += 1
+		else:
+			counts[e.outs[0]] = 1
+	return max(counts.items(), key=operator.itemgetter(1))[0]
+
+
 def run():
 	ds = Dataset('datasets/ex03.ds')
 	for e in ds.examples:
 		point = 'bx' if e.outs[0] == 1 else 'rx'
 		plt.plot(e.ins[0], e.ins[1], point)
-	nearest = get_nearest_neighbors(Example([0.4, 0.4], [0]), ds, 3)
-	print(nearest)
+	nearests = get_nearest_neighbors(Example([0.4, 0.4], [0]), ds, 3)
+	most_present = get_most_present_cat(nearests)
+	print(most_present)
 	plt.show()
 
 
