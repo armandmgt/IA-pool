@@ -29,13 +29,17 @@ def get_most_present_cat(examples: [Example]) -> int:
 
 
 def run():
-	ds = Dataset('datasets/ex03.ds')
-	for e in ds.examples:
-		point = 'bx' if e.outs[0] == 1 else 'rx'
-		plt.plot(e.ins[0], e.ins[1], point)
-	nearests = get_nearest_neighbors(Example([0.4, 0.4], [0]), ds, 3)
-	most_present = get_most_present_cat(nearests)
-	print(most_present)
+	train_ds = Dataset('datasets/trainWine.ds')
+	test_ds = Dataset('datasets/testWine.ds')
+	colors = ['', 'red', 'blue', 'green']
+	plt.subplot(2, 1, 1)
+	for e in train_ds.examples:
+		plt.plot(e.ins[0], e.ins[1], color=colors[int(e.outs[0])], marker='o')
+	plt.subplot(2, 1, 2)
+	for e in test_ds.examples:
+		nearests = get_nearest_neighbors(e, train_ds, 1)
+		most_present = get_most_present_cat(nearests)
+		plt.plot(e.ins[0], e.ins[1], color=colors[int(most_present)], marker='x')
 	plt.show()
 
 
