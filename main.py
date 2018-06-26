@@ -1,4 +1,3 @@
-import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
@@ -9,15 +8,15 @@ def run():
 	figure = plt.figure()
 	ax = figure.add_subplot(111, projection='3d')
 	ds = Dataset('datasets/xor.ds')
-	xvalues = []
-	yvalues = []
-	zvalues = []
+	ds.normalize()
+	x = []
+	y = []
+	z = []
 	for example in ds.examples:
-		print(example.entries)
-		xvalues.append(example.entries[0])
-		yvalues.append(example.entries[1])
-		zvalues.append(example.outs[0])
-	ax.scatter(xvalues, yvalues, zvalues)
+		x.append(example.ins[0])
+		y.append(example.ins[1])
+		z.append(example.outs[0])
+	ax.scatter(x, y, z)
 	plt.show()
 
 
