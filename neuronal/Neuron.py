@@ -9,15 +9,14 @@ def sigmoid(x: float) -> float:
 
 class Neuron:
 	ins: [float]
-	bias: float
 	weights: [float]
 	out: float
 
 	def __init__(self, nb_ins: int):
-		self.weights = [uniform(-2, 2) for _ in range(nb_ins)]
+		self.weights = [uniform(-2, 2) for _ in range(nb_ins + 1)]
 
 	def activate(self, entries: [float]) -> None:
-		sp = reduce(self.ponderate, zip(entries, self.weights), self.bias)
+		sp = reduce(self.ponderate, zip(entries, self.weights[1:]), self.weights[0])
 		self.out = sigmoid(sp)
 
 	@staticmethod
