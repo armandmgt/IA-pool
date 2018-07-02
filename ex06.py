@@ -3,7 +3,7 @@ from tkinter import *
 from neuronal.NeuralNetwork import NeuralNetwork
 
 entries = [[0, 0, 0], [0, 1, 1], [1, 0, 0], [1, 1, 1]]
-nn = NeuralNetwork([3, 5, 5, 2])
+nn = NeuralNetwork([2, 2, 1])
 
 
 def test():
